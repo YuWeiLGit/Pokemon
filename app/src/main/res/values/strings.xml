@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestApplication</string>
+    <string name="sort">sort</string>
+    <string name="spd">spd</string>
+    <string name="attack">attack</string>
+    <string name="defense">defense</string>
+    <string name="total">total</string>
+</resources>
