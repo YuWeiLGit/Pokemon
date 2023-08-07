@@ -59,6 +59,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.10.0")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 }
 kapt {

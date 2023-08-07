@@ -1,6 +1,7 @@
 package com.example.testapplication.Adapter
 
 import android.graphics.Color
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,7 @@ import okhttp3.internal.notify
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private var map = mutableMapOf<String, List<Pokemon>>().toList()
-
+    private var innerAdapter: InnerAdapter = InnerAdapter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -35,6 +36,8 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
         val binding = holder.binding
         binding.textViewCategory.text = map[position].first
         binding.bg.setBackgroundColor(Color.parseColor(Utils.getColor(map[position].first)))
+        binding.innerRecyclerView.adapter = innerAdapter
+        innerAdapter.changeList(map[position].second)
     }
 
     fun changeMap(map: MutableMap<String, List<Pokemon>>) {
@@ -52,8 +55,13 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
         }
 
         override fun onClick(v: View?) {
-            if (v?.id == R.id.bg) {
-
+            if (v?.id == R.id.bg ||v?.id == R.id.textView_category) {
+                binding.innerRecyclerView.visibility =
+                    if (binding.innerRecyclerView.visibility == View.VISIBLE) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
             }
         }
 
