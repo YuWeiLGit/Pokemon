@@ -1,8 +1,13 @@
 package com.example.testapplication.DI
 
-import com.example.testapplication.MyApp
+import android.app.Application
+import android.content.Context
+import com.example.testapplication.DataBase.Dao.PokemonDao
+import com.example.testapplication.DataBase.DataBase.AppDataBase
+import com.example.testapplication.Repository.DataRepository
+import com.example.testapplication.Repository.LocalRepository
 import com.example.testapplication.internet.ApiService
-import com.example.testapplication.internet.DataRepository
+import com.example.testapplication.Repository.RemoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +32,41 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDataRepository(apiService: ApiService): DataRepository {
-        return DataRepository(apiService)
+    fun provideRemoteRepository(apiService: ApiService): RemoteRepository {
+        return RemoteRepository(apiService)
     }
 
+    @Provides
+    @Singleton
+    fun providePokemonDao(appDataBase: AppDataBase): PokemonDao {
+        return appDataBase.pokemonDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalRepository(pokemonDao: PokemonDao): LocalRepository {
+        return LocalRepository(pokemonDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideContext(application: Application): Context {
+        return application
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDataBase(context: Context): AppDataBase {
+        return AppDataBase.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataRepository(
+        localRepository: LocalRepository,
+        remoteRepository: RemoteRepository
+    ): DataRepository {
+        return DataRepository(localRepository, remoteRepository)
+    }
 
 }

@@ -1,14 +1,15 @@
 package com.example.testapplication.Activity.Main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import com.example.testapplication.Activity.Detail.DetailActivity
 import com.example.testapplication.Adapter.CategoryAdapter
+import com.example.testapplication.Model.Pokemon
+import com.example.testapplication.Utils.Constant
 import com.example.testapplication.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -16,18 +17,38 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: CategoryAdapter
     private lateinit var binding: ActivityMainBinding
 
+    interface SelectPokemon {
+        fun onShowDetail(pokemon: Pokemon)
+
+        fun onCollectPokemon(id: String)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setCLick()
-        adapter = CategoryAdapter()
+        adapter = CategoryAdapter(object : SelectPokemon {
+            override fun onShowDetail(pokemon: Pokemon) {
+                startDetailActivity(viewModel.getPokeListByIdOrder(), pokemon)
+            }
+
+            override fun onCollectPokemon(id: String) {
+                viewModel.changePokemonCollectStatus(id)
+            }
+        })
         binding.mainRecyclerview.adapter = adapter
         initViewModel()
-        viewModel.getData()
+        fetchData()
     }
 
+
+    fun startDetailActivity(list: MutableList<Pokemon>, targetPokemon: Pokemon) {
+//        val intent = Intent(this, DetailActivity::class.java)
+//        intent.putExtra(Constant.targetPokemon, targetPokemon)
+//        intent.putParcelableArrayListExtra(Constant.pokemonList, ArrayList(list))
+//        startActivity(intent)
+    }
 
     private fun initViewModel() {
         viewModel.apply {
@@ -37,7 +58,15 @@ class MainActivity : AppCompatActivity() {
             pokeMap.observe(this@MainActivity) {
                 adapter.changeMap(it)
             }
+            loadingViewLiveData.observe(this@MainActivity) {
+                binding.loadingView.setStatus(it)
+            }
         }
+    }
+
+
+    private fun fetchData() {
+        viewModel.getData()
     }
 
 

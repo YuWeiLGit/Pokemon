@@ -5,4 +5,5 @@
     <string name="attack">attack</string>
     <string name="defense">defense</string>
     <string name="total">total</string>
+    <string name="loading">loading...</string>
 </resources>

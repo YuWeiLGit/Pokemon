@@ -75,4 +75,10 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_category" />
 
+    <com.example.testapplication.CustonView.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
 </RelativeLayout>

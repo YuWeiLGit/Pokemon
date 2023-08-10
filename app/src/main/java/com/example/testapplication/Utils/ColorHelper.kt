@@ -1,8 +1,6 @@
-package com.example.testapplication
+package com.example.testapplication.Utils
 
-import java.util.Locale
-
-object Utils {
+object ColorHelper {
 
     val colorMap = mapOf(
         "grass" to "#2CDAB1",

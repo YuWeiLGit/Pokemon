@@ -6,5 +6,6 @@
     <color name="yellow">#F9DC24</color>
     <color name="oliveGreen">#4B7447</color>
     <color name="lime">#8EBA43</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

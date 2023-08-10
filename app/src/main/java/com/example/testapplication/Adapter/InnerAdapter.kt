@@ -5,13 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.testapplication.Activity.Main.MainActivity
 import com.example.testapplication.Model.Pokemon
-import com.example.testapplication.R
+import com.example.testapplication.Repository.DataRepository
 import com.example.testapplication.databinding.ItemInnerPokemonBinding
 
-class InnerAdapter : RecyclerView.Adapter<InnerAdapter.InnerViewHolder>() {
+class InnerAdapter(
+    private val list: List<Pokemon>,
+    private val selectPokemon: MainActivity.SelectPokemon
+) :
+    RecyclerView.Adapter<InnerAdapter.InnerViewHolder>() {
 
-    private var list = listOf<Pokemon>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
         return InnerViewHolder(
             ItemInnerPokemonBinding.inflate(
@@ -26,34 +30,44 @@ class InnerAdapter : RecyclerView.Adapter<InnerAdapter.InnerViewHolder>() {
         return list.size
     }
 
-    fun changeList(list: List<Pokemon>) {
-        this.list = list
-        notifyDataSetChanged()
-    }
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
         val pokemon = list[position]
         holder.binding.apply {
             name.text = pokemon.name
-            id.text = String.format("# %s", pokemon.id)
+            id.text = String.format("%s", pokemon.id)
             atk.text = String.format("ATK %d", pokemon.attack)
             def.text = String.format("DEF %d", pokemon.defense)
             spd.text = String.format("SPD %d", pokemon.speed)
-//            Glide.with(holder.binding.root.context)
-//                .load(pokemon.imageUrl)
-//                .into(imageView)
-
+            Glide.with(holder.binding.root.context)
+                .load(pokemon.imageUrl)
+                .into(imageView)
+            heart.isActivated = pokemon.isCollect
         }
     }
 
-    class InnerViewHolder(binding: ItemInnerPokemonBinding) :
-        RecyclerView.ViewHolder(binding.root){
+
+    inner class InnerViewHolder(binding: ItemInnerPokemonBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val binding: ItemInnerPokemonBinding
+        private val heartClickListener = View.OnClickListener {
+            val pokemon = list[adapterPosition]
+            pokemon.isCollect = !pokemon.isCollect
+            pokemon.id.let {
+                selectPokemon.onCollectPokemon(pokemon.id)
+                binding.heart.isActivated = pokemon.isCollect
+            }
+        }
+
+        private val detailClickListener = View.OnClickListener {
+            selectPokemon.onShowDetail(list[adapterPosition])
+        }
 
         init {
             this.binding = binding
+            binding.heart.setOnClickListener(heartClickListener)
+            binding.innerBg.setOnClickListener(detailClickListener)
         }
-
 
 
     }
