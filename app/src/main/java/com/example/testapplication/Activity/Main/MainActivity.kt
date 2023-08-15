@@ -30,11 +30,19 @@ class MainActivity : AppCompatActivity() {
         setCLick()
         adapter = CategoryAdapter(object : SelectPokemon {
             override fun onShowDetail(pokemon: Pokemon) {
-                startDetailActivity(viewModel.getPokeListByIdOrder(), pokemon)
+                startDetailActivity(pokemon)
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCollectPokemon(id: String) {
                 viewModel.changePokemonCollectStatus(id)
+            }
+        }, object : CategoryAdapter.OnSelectCategory {
+            override fun onClick(position: Int) {
+                adapter.notifyDataSetChanged()
+                if (position - 1 > 0) {
+                    binding.mainRecyclerview.smoothScrollToPosition(position - 1)
+                }
             }
         })
         binding.mainRecyclerview.adapter = adapter
@@ -43,11 +51,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun startDetailActivity(list: MutableList<Pokemon>, targetPokemon: Pokemon) {
-//        val intent = Intent(this, DetailActivity::class.java)
-//        intent.putExtra(Constant.targetPokemon, targetPokemon)
-//        intent.putParcelableArrayListExtra(Constant.pokemonList, ArrayList(list))
-//        startActivity(intent)
+    fun startDetailActivity(targetPokemon: Pokemon) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(Constant.targetPokemon, targetPokemon)
+        startActivity(intent)
     }
 
     private fun initViewModel() {
@@ -80,8 +87,8 @@ class MainActivity : AppCompatActivity() {
         binding.defense.setOnClickListener { _ ->
             viewModel.changeCurrentTopBarStatus(Status.DEF)
         }
-        binding.total.setOnClickListener { _ ->
-            viewModel.changeCurrentTopBarStatus(Status.TOTAL)
+        binding.Default.setOnClickListener { _ ->
+            viewModel.changeCurrentTopBarStatus(Status.DEFAULT)
         }
     }
 
@@ -89,7 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun changeStatusView(status: Status) {
         val statusToViewMap = mapOf(
             Status.ATK to binding.attack,
-            Status.TOTAL to binding.total,
+            Status.DEFAULT to binding.Default,
             Status.DEF to binding.defense,
             Status.SPD to binding.spd
         )
@@ -101,6 +108,6 @@ class MainActivity : AppCompatActivity() {
 
 
     enum class Status {
-        ATK, DEF, SPD, TOTAL
+        ATK, DEF, SPD, DEFAULT
     }
 }

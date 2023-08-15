@@ -24,13 +24,30 @@
             android:text="@string/sort" />
 
         <com.example.testapplication.CustonView.TopButton
+            android:id="@+id/Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:isSelect="true"
+            app:tbText="@string/def" />
+
+
+        <com.example.testapplication.CustonView.TopButton
             android:id="@+id/attack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            app:isSelect="true"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
+            app:isSelect="false"
             app:tbText="@string/attack" />
 
         <com.example.testapplication.CustonView.TopButton
@@ -49,19 +66,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="10sp"
             app:isSelect="false"
             app:tbText="@string/spd" />
 
-        <com.example.testapplication.CustonView.TopButton
-            android:id="@+id/total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:isSelect="false"
-            app:tbText="@string/total" />
     </LinearLayout>
 
 
@@ -78,7 +89,7 @@
     <com.example.testapplication.CustonView.LoadingView
         android:id="@+id/loadingView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
+        android:layout_height="match_parent" />
+
 
 </RelativeLayout>

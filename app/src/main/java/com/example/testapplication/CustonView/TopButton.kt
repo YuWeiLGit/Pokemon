@@ -2,7 +2,6 @@ package com.example.testapplication.CustonView
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.core.content.res.ResourcesCompat

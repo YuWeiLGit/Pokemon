@@ -9,15 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(
     private val localRepository: LocalRepository,
     private val remoteRepository: RemoteRepository
 ) {
-    var cacheData = mutableMapOf<String, Pokemon>()
+    private var cacheData = mutableMapOf<String, Pokemon>()
 
     fun queryIsPokemonCollect(id: String): Flow<Pair<String, Boolean>> =
         flow {
@@ -45,6 +43,13 @@ class DataRepository @Inject constructor(
             localRepository.updatePokemon(pokemon)
         }
     }
+
+    suspend fun getPokemonById(id: String): Flow<Pokemon> = flow<Pokemon> {
+        val pokemon = cacheData.getOrDefault(id, localRepository.getPokemonById(id))
+        pokemon?.let {
+            emit(pokemon)
+        }
+    }.flowOn(Dispatchers.IO)
 
     fun getPokemonData(): Flow<MutableMap<String, List<Pokemon>>> = flow {
         val localData = localRepository.getAllPokemon()

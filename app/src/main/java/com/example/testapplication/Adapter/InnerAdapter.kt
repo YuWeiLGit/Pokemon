@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.testapplication.Activity.Main.MainActivity
 import com.example.testapplication.Model.Pokemon
-import com.example.testapplication.Repository.DataRepository
 import com.example.testapplication.databinding.ItemInnerPokemonBinding
 
 class InnerAdapter(
-    private val list: List<Pokemon>,
+    private var list: List<Pokemon>,
     private val selectPokemon: MainActivity.SelectPokemon
 ) :
     RecyclerView.Adapter<InnerAdapter.InnerViewHolder>() {
@@ -47,15 +46,19 @@ class InnerAdapter(
     }
 
 
+    fun changeData(list: List<Pokemon>) {
+        this.list = list
+        notifyDataSetChanged()
+    }
+
     inner class InnerViewHolder(binding: ItemInnerPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val binding: ItemInnerPokemonBinding
         private val heartClickListener = View.OnClickListener {
             val pokemon = list[adapterPosition]
-            pokemon.isCollect = !pokemon.isCollect
             pokemon.id.let {
                 selectPokemon.onCollectPokemon(pokemon.id)
-                binding.heart.isActivated = pokemon.isCollect
+                binding.heart.isActivated = !pokemon.isCollect
             }
         }
 

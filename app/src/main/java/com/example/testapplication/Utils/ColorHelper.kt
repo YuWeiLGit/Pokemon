@@ -2,7 +2,7 @@ package com.example.testapplication.Utils
 
 object ColorHelper {
 
-    val colorMap = mapOf(
+    private val colorMap = mapOf(
         "grass" to "#2CDAB1",
         "fire" to "#F7706B",
         "water" to "#58ABF6",

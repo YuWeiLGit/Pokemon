@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testapplication.Model.Pokemon
-import com.example.testapplication.Repository.RemoteRepository
 import androidx.lifecycle.MutableLiveData
 import com.example.testapplication.CustonView.LoadingView
 import com.example.testapplication.Repository.DataRepository
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -22,19 +20,24 @@ class MainViewModel @Inject constructor(private val repository: DataRepository) 
     val loadingViewLiveData = MutableLiveData<Int>()
     fun changeCurrentTopBarStatus(status: MainActivity.Status) {
         topBarStatus.postValue(status)
+        sortPokemon(status)
     }
 
-    fun getPokeListByIdOrder(): MutableList<Pokemon> {
-        val set = mutableSetOf<Pokemon>()
-        pokeMap.value?.forEach { (_, list) ->
-            for (pokemon in list) {
-                set.add(pokemon)
+    private fun sortPokemon(status: MainActivity.Status) {
+        val map = pokeMap.value
+        map?.forEach { (type, list) ->
+            val sortList = when (status) {
+                MainActivity.Status.DEFAULT -> list.sortedBy { it.id }
+                MainActivity.Status.ATK -> list.sortedBy { it.attack }
+                MainActivity.Status.DEF -> list.sortedBy { it.defense }
+                MainActivity.Status.SPD -> list.sortedBy { it.speed }
             }
+            map[type] = sortList
         }
-        return set.sortedBy { it.id }.toMutableList()
+        pokeMap.postValue(map)
     }
 
-    fun changePokemonCollectStatus(id:String){
+    fun changePokemonCollectStatus(id: String) {
         viewModelScope.launch {
             repository.changePokemonCollectStatus(id)
         }

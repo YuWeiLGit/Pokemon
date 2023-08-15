@@ -1,7 +1,6 @@
 package com.example.testapplication.internet
 
 import com.example.testapplication.Model.Pokemon
-import retrofit2.Response
 import retrofit2.http.GET
 
 interface ApiService {

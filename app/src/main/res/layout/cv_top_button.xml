@@ -10,10 +10,14 @@
 
     <TextView
         android:id="@+id/textview"
+        android:autoSizeMaxTextSize="16sp"
+        android:autoSizeMinTextSize="10sp"
         android:layout_width="wrap_content"
+        android:lines="1"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="@string/sort"
         android:textColor="@color/white" />
