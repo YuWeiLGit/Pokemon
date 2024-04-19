@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_top_button_unselect"
     android:padding="8dp"
-    tools:context=".Activity.Main.MainActivity">
+    tools:context=".ui.mainframe.MainActivity">
 
     <TextView
         android:id="@+id/textview"

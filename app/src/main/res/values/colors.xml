@@ -5,5 +5,22 @@
     <color name="oliveGreen">#4B7447</color>
     <color name="lime">#8EBA43</color>
     <color name="transparent">#00000000</color>
-
+    <color name="grass">#2CDAB1</color>
+    <color name="fire">#F7706B</color>
+    <color name="water">#58ABF6</color>
+    <color name="bug">#2CDA90</color>
+    <color name="normal">#7986CB</color>
+    <color name="poison">#9F5BBA</color>
+    <color name="electric">#FFE252</color>
+    <color name="ground">#CA8179</color>
+    <color name="fairy">#FF86AF</color>
+    <color name="fighting">#F78C6B</color>
+    <color name="psychic">#FFCE4B</color>
+    <color name="rock">#955A54</color>
+    <color name="ghost">#7C5BBA</color>
+    <color name="ice">#58F1F6</color>
+    <color name="dragon">#7A9A64</color>
+    <color name="dark">#303943</color>
+    <color name="steel">#4A425A</color>
+    <color name="flying">#C379CB</color>
 </resources>

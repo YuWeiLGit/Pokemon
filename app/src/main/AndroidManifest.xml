@@ -13,13 +13,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TestApplication"
-        tools:targetApi="31">
+        android:theme="@style/Theme.PokemonApplication"
+        tools:targetApi="34">
         <activity
-            android:name=".Activity.Detail.DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Main.MainActivity"
+            android:name=".ui.mainframe.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingableImageView">
+        <attr name="imgSrc" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LoadingView">
+        <attr name="isTransparentBg" format="boolean" />
+    </declare-styleable>
+</resources>
