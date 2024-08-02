@@ -5,9 +5,9 @@ import android.content.Context
 import com.example.pokemonbook.dataBase.dao.PokemonDao
 import com.example.pokemonbook.dataBase.dataBase.AppDataBase
 import com.example.pokemonbook.internet.ApiService
-import com.example.pokemonbook.repository.DataRepository
-import com.example.pokemonbook.repository.LocalRepository
-import com.example.pokemonbook.repository.RemoteRepository
+import com.example.pokemonbook.data.repository.DataRepository
+import com.example.pokemonbook.data.repository.LocalRepository
+import com.example.pokemonbook.data.repository.RemoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

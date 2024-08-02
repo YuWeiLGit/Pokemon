@@ -1,4 +1,4 @@
-package com.example.pokemonbook.repository
+package com.example.pokemonbook.data.repository
 
 import android.util.Log
 import com.example.pokemonbook.model.ApiResult

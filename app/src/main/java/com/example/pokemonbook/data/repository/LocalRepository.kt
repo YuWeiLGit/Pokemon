@@ -1,4 +1,4 @@
-package com.example.pokemonbook.repository
+package com.example.pokemonbook.data.repository
 
 import com.example.pokemonbook.dataBase.dao.PokemonDao
 import com.example.pokemonbook.model.Pokemon
